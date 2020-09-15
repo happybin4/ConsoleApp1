@@ -6,7 +6,11 @@ namespace ConsoleApp0915
 {
     class AccountManager
     {
-        BankAccount account;
+        BankAccount[] accountArr = new BankAccount[10];
+        string[] accNum = new string[10];
+        string[] accName = new string[10];
+        
+        int cnt = 0;
         public void PrintMenu()
         {
             Console.WriteLine("\n---Menu-----------");
@@ -20,23 +24,52 @@ namespace ConsoleApp0915
         public void MakeAccount() //1.계좌개설
         {
             Console.Write("계좌번호 : ");
-            string accNum = Console.ReadLine();
+            accNum[cnt] = Console.ReadLine();
             Console.WriteLine("예금주명 : ");
-            string accName = Console.ReadLine();
+            accName[cnt] = Console.ReadLine();
 
-            account = new BankAccount(accNum,accName);
+            accountArr[cnt] = new BankAccount(accNum[cnt],accName[cnt]);
+            cnt++;
         }
-        
         private bool CheckAcc() //계좌 개설 확인
         {
-            if (account == null)
+            string chName = Console.ReadLine();
+            
+            int chCnt=0;
+            while (true)
+            {
+                Console.WriteLine("이름을 입력하세요 : ");
+                if (accName[chCnt] == chName)
+                {
+                    Console.Write("계좌 번호를 입력하세요 : ");
+                    if (accNum[chCnt] == Console.ReadLine())
+                    {
+                        cnt = chCnt;
+                        return true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("계좌 번호를 잘못입력했습니다.");
+                    }
+                }
+                else { chCnt++; }
+                if(chCnt == 9)
+                {
+                    Console.WriteLine("해당 이름으로 개설된 계좌가 없습니다.");
+                    return false;
+                }
+            }
+        }
+        /*private bool CheckAcc() //계좌 개설 확인
+        {
+            if (accountArr[cnt-1] == null)
             {
                 Console.WriteLine("계좌개설을 먼저 해주십시오.");
                 return false;
             }
             else
                 return true;
-        }
+        }*/
 
         public void Deposit() //2.입금
         {
@@ -44,19 +77,19 @@ namespace ConsoleApp0915
 
             Console.WriteLine("입금하실 금액은?:");
             int money = int.Parse(Console.ReadLine());
-            account.InputMoney(money);
+            accountArr[cnt].InputMoney(money);
         }
         public void Withdrawal()
         {
             if (!CheckAcc()) return;
             Console.WriteLine("출금하실 금액은?:");
             int money = int.Parse(Console.ReadLine());
-            account.OutputMoney(money);
+            accountArr[cnt].OutputMoney(money);
         }
         public void CheckAccount()
         {
             if (!CheckAcc()) return;
-            account.PrintAccInfo();
+            accountArr[cnt].PrintAccInfo();
 
         }
         
