@@ -25,7 +25,7 @@ namespace ConsoleApp0915
         {
             Console.Write("계좌번호 : ");
             accNum[cnt] = Console.ReadLine();
-            Console.WriteLine("예금주명 : ");
+            Console.Write("예금주명 : ");
             accName[cnt] = Console.ReadLine();
 
             accountArr[cnt] = new BankAccount(accNum[cnt],accName[cnt]);
@@ -33,12 +33,12 @@ namespace ConsoleApp0915
         }
         private bool CheckAcc() //계좌 개설 확인
         {
+
+            Console.WriteLine("이름을 입력하세요 : ");
             string chName = Console.ReadLine();
-            
             int chCnt=0;
             while (true)
-            {
-                Console.WriteLine("이름을 입력하세요 : ");
+            {               
                 if (accName[chCnt] == chName)
                 {
                     Console.Write("계좌 번호를 입력하세요 : ");
@@ -99,14 +99,14 @@ namespace ConsoleApp0915
     {
         
         static void Main()
-        {
+        {   
             AccountManager manager = new AccountManager();
             int choice;
             while (true)
             {                   
-                Console.WriteLine("\n"+manager.ToString());
+                
                 manager.PrintMenu();
-                Console.WriteLine("선택:");
+                Console.Write("선택:");
                 choice = int.Parse(Console.ReadLine());
                 switch (choice)
                 {
